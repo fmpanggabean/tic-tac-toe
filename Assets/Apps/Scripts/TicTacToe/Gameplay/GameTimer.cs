@@ -26,5 +26,9 @@ namespace TicTacToe.Gameplay {
             OnTimeTicking?.Invoke(turnLabel, time);
             OnTimeUp?.Invoke(turnLabel);
         }
+
+        internal void Stop() {
+            StopAllCoroutines();
+        }
     }
 }

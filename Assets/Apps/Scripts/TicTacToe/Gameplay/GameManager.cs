@@ -16,6 +16,7 @@ namespace TicTacToe.Gameplay
         public PlayerTurn turn;
 
         public event Action<TurnLabel> OnGameOver;
+        public event Action<TurnLabel> OnWin;
 
         public GameManager() {
             turn = new PlayerTurn();
@@ -51,12 +52,19 @@ namespace TicTacToe.Gameplay
         private void SetSign(BoardPiece bp) {
             Debug.Log("Setting sign at " + bp);
             if(board.SetSign(bp, turn.GetTurn())) {
-                if (board.WinCheck(turn.GetTurn())) {
-
+                if (board.WinCheck()) {
+                    Win();
                 } else {
                     turn.NextTurn();
                 }
             }
+        }
+
+        private void Win() {
+            Debug.Log(turn.GetTurn() + " Win!");
+            timer.Stop();
+            input.DisableUserInput();
+            OnWin?.Invoke(turn.GetTurn());
         }
     }
 }

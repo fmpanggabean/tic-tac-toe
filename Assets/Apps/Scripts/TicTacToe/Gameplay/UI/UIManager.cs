@@ -16,6 +16,7 @@ namespace TicTacToe.Gameplay.UI {
             gameManager.turn.OnTurnRandomized += GetUI<TurnNotice>().ShowNotice;
             GetUI<TurnNotice>().OnNoticeClosed += gameManager.StartGame;
             gameManager.timer.OnTimeTicking += GetUI<TimerUI>().ShowTimer;
+            gameManager.OnWin += GetUI<WinUI>().ShowWinner;
         }
         public T GetUI<T>() where T : BaseUI {
             foreach(BaseUI ui in uiCollection) {
