@@ -5,13 +5,17 @@ using TMPro;
 using System;
 
 namespace TicTacToe.Gameplay.UI {
-    public class TurnNotice : BaseUI
+    public class TurnNotice : BaseUI, IGameplayUI
     {
         public TMP_Text text;
+
+        public GameManager GameManager => FindObjectOfType<GameManager>();
 
         public event Action OnNoticeClosed;
 
         private void Start() {
+            GameManager.turn.OnTurnRandomized += ShowNotice;
+            OnNoticeClosed += GameManager.StartGame;
             Hide();
         }
         public void ShowNotice(TurnLabel label) {
